@@ -9,5 +9,22 @@
     "prefix": "nfn",
     "body": "export default function $1() {\n  return <div>$1</div>;\n}",
     "description": "next function"
+  },
+  "reactComponent": {
+    "prefix": "rfc",
+    "scope": "javascript,typescript,javascriptreact",
+    "body": [
+      "function ${1:${TM_FILENAME_BASE}} () {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}",
+      ""
+    ],
+    "description": "React component"
   }
 }
