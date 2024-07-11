@@ -90,8 +90,31 @@ export async function getSettings() {
   return data;
 }
 
+// Guests are uniquely identified by their email address
+export async function getGuest(email) {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  // No error here - handle the possibility of no guest in the sign in callback
+  return data;
+}
+
 /////////////
 // CREATE
+
+export async function createGuest(newGuest) {
+  const { data, error } = await supabase.from("guests").insert([newGuest]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Guest could not be created");
+  }
+
+  return data;
+}
 
 /////////////
 // UPDATE
