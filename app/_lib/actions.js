@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
 import { auth, signIn, signOut } from "./auth";
 import { getBookings } from "./data-service";
+import { redirect } from "next/navigation";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -46,13 +47,56 @@ export async function updateGuestProfile(formData) {
   return data;
 }
 
+// UPDATING A EXISTING BOOKING
+export default async function updateBooking(formData) {
+  // AUTHENTICATION
+  const session = await auth();
+  if (!session) throw new Error("You need to Log in");
+
+  const bookingId = Number(formData.get("bookingId"));
+
+  // AUTHORIZATION
+  // Checking if the reservation that is getting UPDATED is actually reserved by the current authenticated user
+  // If NOT, throw an error
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+  if (!guestBookingsIds.includes(bookingId)) {
+    throw new Error("You are NOT allowed to update this booking");
+  }
+
+  // EXTRACTING FORM DATA
+  const numGuests = formData.get("numGuests");
+  const observations = formData.get("observations").slice(0, 1000);
+  const updateData = { numGuests, observations };
+
+  // UPDATING DATABASE
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(updateData)
+    .eq("id", bookingId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Booking could not be updated");
+  }
+
+  // REVALIDATION
+  revalidatePath(`/account/reservation/edit${bookingId}`);
+
+  // REDIRECTING TO ALL RESERVATIONS PAGE
+  redirect("/account/reservations");
+
+  return data;
+}
+
 // DELETING A RESERVATION
 export async function deleteReservation(bookingId) {
   const session = await auth();
 
   if (!session) throw new Error("You need to Log in");
 
-  // Checking if the reservation that is getting deleted is actually reserved by the current authenticated user
+  // Checking if the reservation that is getting DELETED is actually reserved by the current authenticated user
   // If NOT, throw an error
   const guestBookings = await getBookings(session.user.guestId);
   const guestBookingsIds = guestBookings.map((booking) => booking.id);

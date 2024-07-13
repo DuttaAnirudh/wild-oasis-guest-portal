@@ -102,6 +102,22 @@ export async function getGuest(email) {
   return data;
 }
 
+// Fetch a particular booking using booking ID
+export async function getBooking(id) {
+  const { data, error, count } = await supabase
+    .from("bookings")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not get loaded");
+  }
+
+  return data;
+}
+
 export async function getBookings(guestId) {
   const { data, error, count } = await supabase
     .from("bookings")
@@ -149,6 +165,22 @@ export async function updateGuest(id, updatedFields) {
   if (error) {
     console.error(error);
     throw new Error("Guest could not be updated");
+  }
+  return data;
+}
+
+// *** Updating Existing Booking ***
+export async function updateBooking(id, updatedFields) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .update(updatedFields)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be updated');
   }
   return data;
 }
