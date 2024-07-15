@@ -14,6 +14,37 @@ export async function signOutAction() {
   await signOut({ redirectTo: "/" });
 }
 
+// CREATING A NEW BOOKING/RESERVATION
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+
+  if (!session) throw new Error("You need to Log in");
+
+  const booking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+  };
+
+  const { error } = await supabase
+    .from("bookings")
+    .insert([booking])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be created");
+  }
+
+  // REVALIDATION OF DATA IN CABIN PAGE
+  revalidatePath(`/cabin/${bookingData.cabinId}`);
+
+  // REDIRECTING TO ALL RESERVATIONS PAGE
+  redirect("/account/reservations");
+}
+
 // UPDATING GUEST PROFILE DATA IN DB
 export async function updateGuestProfile(formData) {
   const session = await auth();
