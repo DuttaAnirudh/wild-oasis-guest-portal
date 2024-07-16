@@ -1,30 +1,21 @@
-import Image from "next/image";
-import Link from "next/link";
-import logo from "@/public/bg.png";
+import Hero from "@/app/_components/Hero";
+import CabinSection from "@/app/_components/CabinSection";
+import { getCabins } from "./_lib/data-service";
 
-export default function Home() {
+export default async function Home() {
+  const cabins = await getCabins();
+
   return (
-    <main className="mt-24 ">
-      <Image
-        src={logo}
-        fill
-        placeholder="blur"
-        quality={80}
-        className="object-cover object-top"
-        alt="Mountains and forests with two cabins"
-      />
+    <div className="mt-24 ">
+      {/* HERO SECTION */}
+      <Hero />
 
-      <div className="relative z-10 text-center">
-        <h1 className="text-8xl text-primary-50 mb-10 tracking-tight font-normal">
-          Welcome to paradise.
-        </h1>
-        <Link
-          href="/cabins"
-          className="bg-accent-500 px-8 py-6 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
-        >
-          Explore luxury cabins
-        </Link>
-      </div>
-    </main>
+      {/* CABINS SECTIONS displaying 4 cabins */}
+      <CabinSection cabins={cabins} />
+
+      {/* <div className="h-screen bg-red-500">AMENETIES SECTION</div>
+      <div className="h-screen bg-red-900">ACTIVITIES SECTION</div>
+      <div className="h-screen bg-yellow-700">BOOKING SECTION</div> */}
+    </div>
   );
 }
