@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${josefin.className} antialiased bg-primary-950 
-        text-primary-100 flex flex-col`}
+        text-primary-100 min-h-screen flex flex-col`}
       >
         <Header />
         <div className="flex-1 grid">
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
-        <footer className="flex items-center justify-center">
+        <footer className="flex items-center justify-center justify-self-end">
           &copy; Copyright by the wild oasis {new Date().getFullYear()}
         </footer>
       </body>

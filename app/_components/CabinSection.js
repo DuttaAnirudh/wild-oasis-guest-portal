@@ -24,8 +24,7 @@ export default function CabinSection({ cabins }) {
       {/* GALLERY GRID */}
       <div className="grid grid-cols-5 grid-rows-2 gap-6 w-full">
         {cabinsData.map((cabin, i) => (
-          <Link
-            href={`/cabins/${cabin.id}`}
+          <div
             className={`w-full relative ${
               i === 0 || i === 3 ? "col-span-3" : "col-span-2"
             }`}
@@ -42,8 +41,33 @@ export default function CabinSection({ cabins }) {
                 className="object-cover border-r border-primary-800"
               />
             </div>
-            <p className="absolute bottom-4 left-0 text-xl px-8 py-2 bg-primary-50/10 backdrop-blur-lg rounded-r-[2rem] overflow-hidden w-[40%]">{`CABIN ${cabin.name}`}</p>
-          </Link>
+            <p
+              className="absolute bottom-8 left-0 font-semibold text-xl 
+            text-accent-800 px-8 py-2 bg-primary-50 rounded-r-[2rem]
+             overflow-hidden w-[40%]"
+            >{`CABIN ${cabin.name}`}</p>
+            <Link
+              href={`/cabins/${cabin.id}`}
+              className="absolute top-4 right-6 bg-primary-50 
+              text-accent-800 text-xl p-2 rounded-full 
+              hover:bg-accent-500 hover:text-primary-50 active:translate-x-1 transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </Link>
+          </div>
         ))}
       </div>
       {/* BUTTON */}
