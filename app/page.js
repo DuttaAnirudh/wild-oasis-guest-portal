@@ -2,6 +2,7 @@ import Hero from "@/app/_components/Hero";
 import CabinSection from "@/app/_components/CabinSection";
 import { getCabins } from "./_lib/data-service";
 import Activities from "./_components/Activities";
+import CtaHomepage from "./_components/CtaHomepage";
 
 export default async function Home() {
   const cabins = await getCabins();
@@ -17,8 +18,8 @@ export default async function Home() {
       {/* ACTIVITIES SECTION */}
       <Activities />
 
-      {/*<div className="h-screen bg-red-900">ACTIVITIES SECTION</div>
-      <div className="h-screen bg-yellow-700">BOOKING SECTION</div> */}
+      {/*CALL TO ACTION SECTION*/}
+      <CtaHomepage />
     </div>
   );
 }

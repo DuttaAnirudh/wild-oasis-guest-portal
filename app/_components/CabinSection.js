@@ -17,7 +17,7 @@ export default function CabinSection({ cabins }) {
         </h2>
         <p className="row-span-2 justify-self-end text-xl font-extralight text-gray-200 max-w-[28rem]">
           Extraordinary natural beauty, enjoy the rich culture and experience
-          the frienliness of the local people.
+          the friendliness of the local people.
         </p>
       </div>
 
