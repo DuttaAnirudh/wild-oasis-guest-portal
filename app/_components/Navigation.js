@@ -1,50 +1,44 @@
 import Link from "next/link";
 import { auth } from "../_lib/auth";
 
-export default async function Navigation() {
-  const session = await auth();
-
+export default function Navigation() {
   return (
-    <nav className="z-10 text-xl">
-      <ul className="flex gap-16 items-center">
-        <li>
-          <Link
-            href="/cabins"
-            className="hover:text-accent-400 transition-colors"
-          >
-            Cabins
-          </Link>
-        </li>
+    <nav className="z-10 text-xl bg-primary-50/15 backdrop-blur-lg px-12 py-1.5 rounded-full border border-primary-50/20">
+      <ul className="flex gap-20 items-center">
         <li>
           <Link
             href="/about"
-            className="hover:text-accent-400 transition-colors"
+            className="hover:text-accent-400 transition-colors  text-lg"
           >
             About
           </Link>
         </li>
+
         <li>
-          {session?.user?.image ? (
-            <Link
-              href="/account"
-              className="hover:text-accent-400 transition-colors flex items-center gap-4"
-            >
-              <img
-                src={session?.user?.image}
-                className="h-8 rounded-full"
-                alt={session.user.name}
-                referrerPolicy="no-refer"
-              />
-              <span>Guest area</span>
-            </Link>
-          ) : (
-            <Link
-              href="/account"
-              className="hover:text-accent-400 transition-colors"
-            >
-              Guest area
-            </Link>
-          )}
+          <Link
+            href="/cabins"
+            className="hover:text-accent-400 transition-colors  text-lg"
+          >
+            Cabins
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            href="/account"
+            className="hover:text-accent-400 transition-colors  text-lg"
+          >
+            Guest area
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            href="#contact"
+            className="hover:text-accent-400 transition-colors  text-lg"
+          >
+            Contact
+          </Link>
         </li>
       </ul>
     </nav>

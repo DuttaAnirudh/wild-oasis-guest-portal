@@ -5,7 +5,7 @@ import queenstownImg from "@/public/queenstown.jpg";
 export default function CtaHomepage() {
   return (
     <section className="h-screen flex flex-col items-center justify-center w-full my-16">
-      <div className="h-[80vh] flex items-center justify-center w-full">
+      <div className="h-[90vh] flex items-center justify-center w-full">
         <div className="flex-1 w-full h-full relative">
           <div className="relative w-full h-full brightness-90 z-1">
             <Image
