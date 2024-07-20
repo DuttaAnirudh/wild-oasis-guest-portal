@@ -27,7 +27,7 @@ export async function createBooking(bookingData, formData) {
     observations: formData.get("observations").slice(0, 1000),
   };
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("bookings")
     .insert([booking])
     .select()
@@ -39,10 +39,10 @@ export async function createBooking(bookingData, formData) {
   }
 
   // REVALIDATION OF DATA IN CABIN PAGE
-  revalidatePath(`/cabin/${bookingData.cabinId}`);
+  // revalidatePath(`/cabin/${bookingData.cabinId}`);
 
   // REDIRECTING TO ALL RESERVATIONS PAGE
-  redirect("/account/reservations");
+  redirect(`/checkout/${data.id}`);
 }
 
 // UPDATING GUEST PROFILE DATA IN DB
