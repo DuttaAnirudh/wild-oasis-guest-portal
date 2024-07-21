@@ -3,6 +3,7 @@ import CabinSection from "@/app/_components/CabinSection";
 import { getCabins } from "./_lib/data-service";
 import Activities from "./_components/Activities";
 import CtaHomepage from "./_components/CtaHomepage";
+import Footer from "./_components/Footer";
 
 export default async function Home() {
   const cabins = await getCabins();
@@ -20,6 +21,9 @@ export default async function Home() {
 
       {/*CALL TO ACTION SECTION*/}
       <CtaHomepage />
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 }

@@ -83,7 +83,12 @@ function StripePage({ amount }) {
     <form onSubmit={handleSubmit}>
       {clientSecret && <PaymentElement />}
       {errorMessage && <p>{errorMessage}</p>}
-      <ButtonForm>{!isloading ? "Pay" : "Processing..."}</ButtonForm>
+      <button
+        type="submit"
+        className="mt-2 w-full py-2 bg-purple-50 text-accent-900 text-xl uppercase font-semibold hover:bg-accent-900 hover:text-primary-50 transition-all"
+      >
+        {!isloading ? "Pay" : "Processing..."}
+      </button>
     </form>
   );
 }

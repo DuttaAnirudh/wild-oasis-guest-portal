@@ -1,9 +1,8 @@
 import Header from "./_components/Header";
 
-import { Josefin_Sans } from "next/font/google";
 import "@/app/_styles/globals.css";
+import { Josefin_Sans } from "next/font/google";
 import { ReservationProvider } from "./_context/ReservationContext";
-import Footer from "./_components/Footer";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -32,7 +31,9 @@ export default function RootLayout({ children }) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
-        <Footer />
+        <p className="text-center py-3">
+          &copy; Copyright Wild Oasis {new Date().getFullYear()}
+        </p>
       </body>
     </html>
   );

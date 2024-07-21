@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="h-[40vh] bg-primary-950 max-w-7xl mx-auto w-full flex flex-col gap-20 mt-[6rem]"
+      className="py-8 bg-primary-950 max-w-7xl mx-auto w-full flex flex-col gap-20 mt-[6rem]"
     >
       <div className="flex items-start">
         <div className="flex-1 flex flex-col items-start gap-5">
@@ -21,16 +21,36 @@ export default function Footer() {
         <div>
           <ul className="texxt-xl uppercase font-light underline flex flex-col gap-2 text-right">
             <li>
-              <Link href="/about">Our Story</Link>
+              <Link
+                href="/about"
+                className="hover:text-accent-500 transition-all duration-300"
+              >
+                Our Story
+              </Link>
             </li>
             <li>
-              <Link href="/cabins">Our Cabins</Link>
+              <Link
+                href="/cabins"
+                className="hover:text-accent-500 transition-all duration-300"
+              >
+                Our Cabins
+              </Link>
             </li>
             <li>
-              <Link href="#activities">Activities</Link>
+              <Link
+                href="#activities"
+                className="hover:text-accent-500 transition-all duration-300"
+              >
+                Activities
+              </Link>
             </li>
             <li>
-              <Link href="/account">Dashboard</Link>
+              <Link
+                href="/account"
+                className="hover:text-accent-500 transition-all duration-300"
+              >
+                Dashboard
+              </Link>
             </li>
           </ul>
         </div>
