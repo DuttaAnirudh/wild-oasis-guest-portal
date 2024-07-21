@@ -85,7 +85,10 @@ function StripePage({ amount }) {
       {errorMessage && <p>{errorMessage}</p>}
       <button
         type="submit"
-        className="mt-2 w-full py-2 bg-purple-50 text-accent-900 text-xl uppercase font-semibold hover:bg-accent-900 hover:text-primary-50 transition-all"
+        className={`mt-2 w-full py-2 bg-purple-50 text-accent-900 text-xl uppercase font-semibold ${
+          !isLoading ? "hover:bg-accent-900 hover:text-primary-50" : ""
+        } transition-all`}
+        disabled={isloading}
       >
         {!isloading ? "Pay" : "Processing..."}
       </button>
