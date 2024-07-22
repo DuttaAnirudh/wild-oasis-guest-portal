@@ -1,22 +1,20 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { convertToSubCurrency } from "@/app/_lib/utils";
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { convertToSubCurrency } from "@/app/_lib/utils";
-import ButtonForm from "./ButtonForm";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 
-function StripePage({ amount }) {
+function StripePage({ amount, bookingId }) {
   const stripe = useStripe();
   const elements = useElements();
 
   const [clientSecret, setClientSecret] = useState();
+  const [paymentIntentId, setPaymentIntentId] = useState();
   const [errorMessage, setErrorMessage] = useState("");
-  const [isloading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
@@ -26,24 +24,57 @@ function StripePage({ amount }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ amount: convertToSubCurrency(amount) }),
+          body: JSON.stringify({
+            amount: convertToSubCurrency(amount),
+            bookingId,
+          }),
         });
+
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
         const data = await response.json();
         setClientSecret(data.clientSecret);
+        setPaymentIntentId(data.paymentIntentId);
       } catch (error) {
-        throw new Error("Error creating payment intent:", error);
+        console.error("Error creating payment intent:", error);
+        setErrorMessage("Error creating payment intent. Please try again.");
       }
     };
 
-    fetchPaymentIntent();
-  }, [amount]);
+    if (amount && bookingId) {
+      fetchPaymentIntent();
+    }
+  }, [amount, bookingId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
 
     if (!stripe || !elements) {
+      return;
+    }
+
+    try {
+      const webhookResponse = await fetch("/api/stripe-webhook", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ paymentIntentId, bookingId }),
+      });
+
+      if (!webhookResponse.ok) {
+        throw new Error(
+          `Webhook request failed: ${webhookResponse.statusText}`
+        );
+      }
+    } catch (webhookError) {
+      console.error("Error notifying webhook:", webhookError);
+      setErrorMessage("Error notifying webhook. Please try again.");
+      setIsLoading(false);
       return;
     }
 
@@ -59,19 +90,15 @@ function StripePage({ amount }) {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://localhost:3000/payment-success?amount=${amount}`,
+        // return_url: `http://localhost:3000/payment-success?amount=${amount}`, // Local Dev Env
+        return_url: `https://wild-oasis-guests.vercel.app/payment-success?amount=${amount}`,
       },
     });
 
     if (error) {
-      // This point is only reached if there's an immediate error
-      // whe confirming the payment. Show the error to your customer
-      // E.g: "Incomplete Payment Details"
       setErrorMessage(error.message);
-    } else {
-      // The payment UI automatically closes with a success animation.
-      // The customer/user is redirected to `return_url`
     }
+
     setIsLoading(false);
   }
 
@@ -88,9 +115,9 @@ function StripePage({ amount }) {
         className={`mt-2 w-full py-2 bg-purple-50 text-accent-900 text-xl uppercase font-semibold ${
           !isLoading ? "hover:bg-accent-900 hover:text-primary-50" : ""
         } transition-all`}
-        disabled={isloading}
+        disabled={isLoading}
       >
-        {!isloading ? "Pay" : "Processing..."}
+        {!isLoading ? "Pay" : "Processing..."}
       </button>
     </form>
   );

@@ -7,7 +7,7 @@ import StripePage from "./StripePage";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
-function Checkout({ amount }) {
+function Checkout({ amount, bookingId }) {
   return (
     <Elements
       stripe={stripePromise}
@@ -17,7 +17,7 @@ function Checkout({ amount }) {
         currency: "usd",
       }}
     >
-      <StripePage amount={amount} />
+      <StripePage amount={amount} bookingId={bookingId} />
     </Elements>
   );
 }

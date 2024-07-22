@@ -23,7 +23,7 @@ export default async function Page({ params }) {
       </div>
 
       <div className="flex-1 px-8">
-        <Checkout amount={totalPrice} />
+        <Checkout amount={totalPrice} bookingId={params.bookingId} />
       </div>
     </div>
   );
