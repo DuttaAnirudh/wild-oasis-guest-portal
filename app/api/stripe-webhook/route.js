@@ -1,39 +1,26 @@
 import { supabase } from "@/app/_lib/supabase";
-import { buffer } from "micro";
 import Stripe from "stripe";
+import { headers } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-06-20", // latest API version as of 07-2024
+  apiVersion: "2024-06-20",
 });
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const webhookHandler = async (req, res) => {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
-    return;
-  }
-
-  const buf = await buffer(req);
-  const sig = req.headers["stripe-signature"];
+export async function POST(req) {
+  const text = await req.text();
+  const headersList = headers();
+  const stripeSignature = headersList.get("stripe-signature");
 
   let event;
-
   try {
     event = stripe.webhooks.constructEvent(
-      buf.toString(),
-      sig,
+      text,
+      stripeSignature,
       process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err) {
     console.error("⚠️  Webhook signature verification failed:", err.message);
-    res.status(400).send(`Webhook Error: ${err.message}`);
-    return;
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
   const { type, data } = event;
@@ -65,11 +52,8 @@ const webhookHandler = async (req, res) => {
     }
   } catch (error) {
     console.error("Error handling webhook event:", error);
-    res.status(500).send("Internal Server Error");
-    return;
+    return new Response("Internal Server Error", { status: 500 });
   }
 
-  res.status(200).json({ received: true });
-};
-
-export default webhookHandler;
+  return new Response(JSON.stringify({ received: true }), { status: 200 });
+}
