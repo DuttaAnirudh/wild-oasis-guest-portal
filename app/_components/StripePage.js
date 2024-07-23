@@ -54,28 +54,8 @@ function StripePage({ amount, bookingId }) {
     setIsLoading(true);
 
     if (!stripe || !elements) {
-      return;
-    }
-
-    try {
-      const webhookResponse = await fetch("/api/stripe-webhook", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ paymentIntentId, bookingId }),
-      });
-
-      if (!webhookResponse.ok) {
-        throw new Error(
-          `Webhook request failed: ${webhookResponse.statusText}`
-        );
-      }
-    } catch (webhookError) {
-      console.error("Error notifying webhook:", webhookError);
-      setErrorMessage("Error notifying webhook. Please try again.");
+      setErrorMessage("Stripe has not loaded yet.");
       setIsLoading(false);
-      return;
     }
 
     const { error: submitError } = await elements.submit();
@@ -90,7 +70,6 @@ function StripePage({ amount, bookingId }) {
       elements,
       clientSecret,
       confirmParams: {
-        // return_url: `http://localhost:3000/payment-success?amount=${amount}`, // Local Dev Env
         return_url: `https://wild-oasis-guests.vercel.app/payment-success?amount=${amount}`,
       },
     });
