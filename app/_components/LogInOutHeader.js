@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowRightEndOnRectangleIcon,
-  ArrowRightStartOnRectangleIcon,
-} from "@heroicons/react/24/solid";
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/solid";
 import { auth } from "@/app/_lib/auth";
 import { signOutAction } from "@/app/_lib/actions";
 
@@ -12,19 +9,29 @@ export default async function LogInOutHeader() {
   return (
     <>
       {!session?.user?.image ? (
-        // LOGIN BUTTON
-        <Link
-          href="/login"
-          className="z-10 bg-primary-50/5 backdrop-blur-lg px-6 py-1.5 
+        <div className="flex items-center gap-4">
+          {/* LOGIN BUTTON */}
+          <Link
+            href="/login"
+            className="z-10 bg-accent-600 px-6 py-1.5  text-primary-950
+  rounded-2xl border border-primary-50/20
+   transition-colors flex items-center gap-2  
+   text-lg "
+          >
+            Login
+          </Link>
+
+          {/* SIGN UP BUTTON */}
+          <Link
+            href="/signup"
+            className="z-10 bg-primary-50/5 backdrop-blur-lg px-6 py-1.5 
   rounded-2xl border border-primary-50/20 hover:bg-accent-400
    hover:text-primary-950 transition-colors flex items-center gap-2  
    text-lg "
-        >
-          Login{" "}
-          <span className="w-4 h-4 ">
-            <ArrowRightEndOnRectangleIcon />
-          </span>
-        </Link>
+          >
+            Signup
+          </Link>
+        </div>
       ) : (
         // USER IMAGE
         <div className="flex item-center gap-3">
