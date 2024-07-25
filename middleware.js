@@ -7,9 +7,30 @@
 // }
 
 import { auth } from "@/app/_lib/auth";
+import { updateSession } from "./app/_lib/supabaseServer";
 
-export const middleware = auth;
+export async function middleware(request) {
+  // Run Supabase session update middleware
+  const supabaseResponse = await updateSession(request);
+
+  console.log("Supabase Response:", supabaseResponse);
+
+  // If Supabase session response is ok === true, return response
+  if (supabaseResponse.ok) {
+    console.log(supabaseResponse);
+    return supabaseResponse;
+  }
+
+  // Run auth.js middleware
+  return auth(request);
+}
 
 export const config = {
-  matcher: ["/account"], // The routes to be protected
+  matcher: ["/account"],
 };
+
+// export const middleware = auth;
+
+// export const config = {
+//   matcher: ["/account"], // The routes to be protected
+// };

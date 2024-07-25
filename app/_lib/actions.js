@@ -1,10 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { supabase } from "./supabase";
+import { supabase } from "./supabaseClient";
 import { auth, signIn, signOut } from "./auth";
 import { getBookings } from "./data-service";
 import { redirect } from "next/navigation";
+import { createClient } from "./supabaseServer";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -14,6 +15,43 @@ export async function signOutAction() {
   await signOut({ redirectTo: "/" });
 }
 
+export async function loginSupabase(formData) {
+  const supabase = createClient();
+
+  const data = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+  };
+
+  const { error } = await supabase.auth.signInWithPassword(data);
+
+  if (error) {
+    console.error(error);
+    throw new Error("There was an error logging into your account");
+  }
+
+  // revalidatePath("/", "layout");
+  redirect("/account");
+}
+
+export async function signupSupabase(formData) {
+  const supabase = createClient();
+
+  const data = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+  };
+
+  const { error } = await supabase.auth.signUp(data);
+
+  if (error) {
+    console.error(error);
+    throw new Error("There was an error creating your account");
+  }
+
+  // revalidatePath("/", "layout");
+  redirect("/account");
+}
 // CREATING A NEW BOOKING/RESERVATION
 export async function createBooking(bookingData, formData) {
   const session = await auth();
