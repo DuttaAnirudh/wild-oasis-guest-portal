@@ -2,6 +2,7 @@ import Link from "next/link";
 import { auth } from "@/app/_lib/auth";
 import { getBookings } from "@/app/_lib/data-service";
 import ReservationList from "@/app/_components/ReservationList";
+import useSupabaseUser from "@/app/_hooks/useSupabaseUser";
 
 export const metadata = {
   title: "Reservations",
@@ -9,7 +10,18 @@ export const metadata = {
 
 export default async function Page() {
   const session = await auth();
-  const bookings = await getBookings(session.user.guestId);
+
+  const { user } = await useSupabaseUser();
+
+  let bookings;
+
+  if (session) {
+    bookings = await getBookings(session.user.guestId);
+  }
+
+  if (user) {
+    bookings = await getBookings(user.user_metadata.guestId);
+  }
 
   return (
     <div>
@@ -17,7 +29,7 @@ export default async function Page() {
         Your reservations
       </h2>
 
-      {bookings.length === 0 ? (
+      {bookings?.length === 0 ? (
         <p className="text-lg">
           You have no reservations yet. Check out our{" "}
           <Link className="underline text-accent-500" href="/cabins">

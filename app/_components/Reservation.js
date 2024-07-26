@@ -3,6 +3,7 @@ import { getBookedDatesByCabinId, getSettings } from "@/app/_lib/data-service";
 import DateSelector from "./DateSelector";
 import ReservationForm from "./ReservationForm";
 import LoginMessage from "./LoginMessage";
+import useSupabaseUser from "../_hooks/useSupabaseUser";
 
 async function Reservation({ cabin }) {
   const [settings, bookedDates] = await Promise.all([
@@ -11,6 +12,16 @@ async function Reservation({ cabin }) {
   ]);
 
   const session = await auth();
+  const { user } = await useSupabaseUser();
+
+  let fullName;
+  if (session) {
+    fullName = session.user.name;
+  } else if (user) {
+    fullName = user.user_metadata.fullName;
+  }
+
+  const activeSession = session || user;
 
   return (
     <div className="grid grid-cols-2 border border-primary-800 min-h-[400px]">
@@ -19,8 +30,8 @@ async function Reservation({ cabin }) {
         settings={settings}
         bookedDates={bookedDates}
       />
-      {session?.user ? (
-        <ReservationForm cabin={cabin} user={session.user} />
+      {activeSession ? (
+        <ReservationForm cabin={cabin} user={fullName} />
       ) : (
         <LoginMessage />
       )}

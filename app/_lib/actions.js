@@ -1,18 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { supabase } from "./supabaseClient";
-import { auth, signIn, signOut } from "./auth";
-import { getBookings } from "./data-service";
 import { redirect } from "next/navigation";
-import { createClient } from "./supabaseServer";
+import { revalidatePath } from "next/cache";
+import { auth, signIn, signOut } from "./auth";
+import { supabase } from "./supabase/supabaseClient";
+import { createClient } from "./supabase/supabaseServer";
+import { createGuest, deleteGuest, getBookings } from "./data-service";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
-}
-
-export async function signOutAction() {
-  await signOut({ redirectTo: "/" });
 }
 
 export async function loginSupabase(formData) {
@@ -37,21 +33,69 @@ export async function loginSupabase(formData) {
 export async function signupSupabase(formData) {
   const supabase = createClient();
 
+  // Creating a new guest in the supabase database
+  const { data: guestData, error: guestDataError } = await createGuest({
+    email: formData.get("email"),
+    fullName: formData.get("fullName"),
+  });
+
+  if (guestDataError) {
+    console.error(guestDataError);
+    throw new Error("There was an error creating your account");
+  }
+
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
+    options: {
+      data: {
+        fullName: formData.get("fullName"),
+        avatar: "",
+        role: "guest",
+        guestId: guestData.at(0).id,
+      },
+    },
   };
 
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
+    // Deleting guest from guest database table if there was an error creating a new user
+    await deleteGuest(formData.get("email"));
+
     console.error(error);
     throw new Error("There was an error creating your account");
   }
 
   // revalidatePath("/", "layout");
-  redirect("/account");
+  redirect("/signup/verify");
 }
+
+export async function logoutAction() {
+  const session = await auth();
+
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // If Logged in through GOOGLE OAUTH
+  if (session) {
+    await signOut({ redirectTo: "/" });
+  }
+  // If Logged in though SUPABASE
+  else if (user) {
+    let { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error(error);
+      throw new Error("There was an error loging out");
+    }
+    redirect("/");
+  }
+  return;
+}
+
 // CREATING A NEW BOOKING/RESERVATION
 export async function createBooking(bookingData, formData) {
   const session = await auth();

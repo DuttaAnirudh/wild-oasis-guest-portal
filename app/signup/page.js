@@ -29,6 +29,13 @@ export default function SignUp() {
         {/* SIGN UP USING SUPABASE */}
         <form action={signupSupabase} className="flex flex-col gap-6">
           <input
+            type="text"
+            name="fullName"
+            placeholder="Full Name*"
+            required
+            className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600"
+          />
+          <input
             type="email"
             name="email"
             placeholder="Email Address*"

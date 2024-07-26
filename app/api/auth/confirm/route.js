@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/app/_lib/supabaseServer";
+import { createClient } from "@/app/_lib/supabase/supabaseServer";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);

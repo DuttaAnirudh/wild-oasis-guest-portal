@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { supabase } from "./supabaseClient";
+import { supabase } from "./supabase/supabaseClient";
 import { eachDayOfInterval } from "date-fns";
 
 /////////////
@@ -140,14 +140,17 @@ export async function getBookings(guestId) {
 // CREATE
 
 export async function createGuest(newGuest) {
-  const { data, error } = await supabase.from("guests").insert([newGuest]);
+  const { data, error } = await supabase
+    .from("guests")
+    .insert([newGuest])
+    .select();
 
   if (error) {
     console.error(error);
     throw new Error("Guest could not be created");
   }
 
-  return data;
+  return { data, error };
 }
 
 /*
@@ -219,3 +222,7 @@ export async function deleteBooking(id) {
 }
 
 */
+
+export async function deleteGuest(email) {
+  const { error } = await supabase.from("guests").delete().eq("email", email);
+}

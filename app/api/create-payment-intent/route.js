@@ -1,4 +1,4 @@
-import { supabase } from "@/app/_lib/supabase";
+import { supabase } from "@/app/_lib/supabase/supabaseClient";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 

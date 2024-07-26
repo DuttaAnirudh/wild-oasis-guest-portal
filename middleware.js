@@ -7,17 +7,14 @@
 // }
 
 import { auth } from "@/app/_lib/auth";
-import { updateSession } from "./app/_lib/supabaseServer";
+import { updateSession } from "./app/_lib/supabase/supabaseServer";
 
 export async function middleware(request) {
   // Run Supabase session update middleware
   const supabaseResponse = await updateSession(request);
 
-  console.log("Supabase Response:", supabaseResponse);
-
   // If Supabase session response is ok === true, return response
   if (supabaseResponse.ok) {
-    console.log(supabaseResponse);
     return supabaseResponse;
   }
 

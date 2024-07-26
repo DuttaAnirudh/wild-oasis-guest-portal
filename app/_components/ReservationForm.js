@@ -33,18 +33,12 @@ function ReservationForm({ cabin, user }) {
 
   return (
     <div className="scale-[1.01]">
-      <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-between items-center">
+      <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-center items-center gap-2">
         <p>Logged in as</p>
 
-        <div className="flex gap-4 items-center">
-          <img
-            referrerPolicy="no-referrer"
-            className="h-8 rounded-full"
-            src={user.image}
-            alt={user.name}
-          />
-          <p>{user.name}</p>
-        </div>
+        <p className="text-accent-500 underline decoration-1 underline-offset-2">
+          {user}
+        </p>
       </div>
 
       <form
