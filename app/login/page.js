@@ -48,6 +48,13 @@ export default function Page() {
           </button>
         </form>
 
+        <Link
+          href="/recovery/forgot-password"
+          className="text-accent-500 text-sm font-light underline decoration-1 underline-offset-2 mt-2"
+        >
+          Forgot Password?
+        </Link>
+
         <p className="text-sm font-light mt-2">
           Don&apos;t have an Account?{" "}
           <Link

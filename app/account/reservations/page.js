@@ -13,7 +13,7 @@ export default async function Page() {
 
   const { user } = await useSupabaseUser();
 
-  let bookings;
+  let bookings = [];
 
   if (session) {
     bookings = await getBookings(session.user.guestId);

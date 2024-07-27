@@ -70,6 +70,7 @@ function StripePage({ amount, bookingId }) {
       elements,
       clientSecret,
       confirmParams: {
+        // return_url: `http://localhost:3000/payment-success?amount=${amount}`, //TEST
         return_url: `https://wild-oasis-guests.vercel.app/payment-success?amount=${amount}`,
       },
     });
