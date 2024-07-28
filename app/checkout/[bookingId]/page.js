@@ -9,8 +9,8 @@ export default async function Page({ params }) {
   const cabin = await getCabin(cabinId);
 
   return (
-    <div className=" w-full bg-accent-600 flex items-center justify-center max-w-[80%] mx-auto rounded-l-[3rem] overflow-hidden mt-20">
-      <div className="relative w-full h-[60vh] flex-1 ">
+    <div className=" w-full  flex items-center justify-center max-w-[80%] mx-auto rounded-l-[3rem] overflow-hidden mt-20 gap-8">
+      <div className="relative w-full h-[45vh] flex-1">
         <Image
           src={cabin.image}
           fill
@@ -19,7 +19,7 @@ export default async function Page({ params }) {
         />
       </div>
 
-      <div className="flex-1 px-8">
+      <div className="flex-1 px-8 py-6 bg-accent-600 rounded-2xl">
         <Checkout amount={totalPrice} bookingId={params.bookingId} />
       </div>
     </div>

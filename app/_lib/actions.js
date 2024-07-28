@@ -11,7 +11,6 @@ import {
   getGuest,
 } from "./data-service";
 import { createClient } from "./supabase/supabaseServer";
-import { headers } from "next/headers";
 
 // SIGNING IN AS A NEW USER USING AUTH.js & GOOGLE OAUTH
 export async function signInAction() {
@@ -130,9 +129,8 @@ export async function resetPasswordWithMail(formData) {
     throw new Error("You are not a  registered user");
   }
 
-  const origin = headers.get("origin");
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/recovery/reset-password`,
+    redirectTo: `${window.location.origin}/recovery/reset-password`,
   });
 
   if (error) {
