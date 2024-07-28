@@ -12,7 +12,9 @@ This customer-facing website is specifically designed for guests to use, allowin
 - **Authentication & Authorization**: Next-Auth / Auth.js
 - **Authentication Provider**: Google Cloud OAuth 2.0
 - **DB/API**: Supabase
+- **User Management**: Supabase
 - **Styling**: TailwindCSS
+- **Payment Gateway**: Stripe
 - **Additional Libraries**: date-fns, react-day-picker, heroicons
 
 ## Potential Users
@@ -45,15 +47,19 @@ This customer-facing website is specifically designed for guests to use, allowin
 - **About Page**: /about
 - **Cabin Overview**: /cabins
 - **Cabin Detail**: /cabins/:cabinId
+- **Signup**: /signup
 - **Login**: /login
 - **Reservation List**: /account/reservations
 - **Edit Reservation**: /account/reservation/edit/:bookingId
 - **Update Profile**: /account/profile
+- **Checkout Page**: /checkout/:bookingId
+- **Recover Forgotten Password**: /recovery/forgot-password
+- **Recover Reset Password**: /recovery/reset-password?:sessionCode
 
 ## Improvements
 
-- Currently, the website accepts no online payments. This can be improved by adding a payment gateway like Stripe or Razorpay for online payments.
+- ~~Currently, the website accepts no online payments. This can be improved by adding a payment gateway like Stripe or Razorpay for online payments.~~ [✅ Feature Added]
 - Add responsiveness to the web app. Currently, the app is only optimized for large screens (i.e., desktop).
-- Accept direct sign-ups and sign-ins using Supabase authentication rather than just Google sign-up.
-- Add more authentication providers like Facebook and X (formerly Twitter).
+- ~~Accept direct sign-ups and sign-ins using Supabase authentication rather than just Google sign-up.~~ [✅ Feature Added]
+- ~~Allow Supabase signed up users to change password.~~ [✅ Feature Added]
 - Send a confirmation email to the user on successful booking of a cabin.
