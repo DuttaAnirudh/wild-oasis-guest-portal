@@ -6,6 +6,8 @@ export const metadata = {
 };
 
 export default function Page({ searchParams }) {
+  const sessionCode = searchParams.code;
+
   return (
     <div className="flex flex-col items-center justify-center h-full w-[30rem] mx-auto">
       <div className="flex flex-col items-center justify-center gap-2 w-[28rem] border border-accent-400 py-16 px-10 rounded-2xl">
@@ -36,7 +38,7 @@ export default function Page({ searchParams }) {
           <input
             type="text"
             name="sessionCode"
-            value={searchParams.code}
+            value={sessionCode}
             required
             className="hidden"
           />

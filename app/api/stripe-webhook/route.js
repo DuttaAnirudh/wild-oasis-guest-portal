@@ -1,15 +1,17 @@
 import { supabase } from "@/app/_lib/supabase/supabaseClient";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { Resend } from "resend";
+import { InvoiceTemplate } from "@/app/_components/InvoiceTemplate";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2024-06-20",
 });
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
 // const endpointSecret =
-//   "whsec_2856656f4e0c8ed70acc0d84ef07e7baf753364fc4af1083cfcde1ff3dd83f61"; // STRIPE CLI TEST
+//   "whsec_2856656f4e0c8ed70acc0d84ef07e7baf753364fc4af1083cfcde1ff3dd83f61";
+const resend = new Resend(process.env.RESEND_KEY);
 
 export async function POST(req) {
   const text = await req.text();
@@ -46,16 +48,26 @@ export async function POST(req) {
         // Payment was successful
         const paymentIntent = data.object;
 
+        // UPDATING SUPABASE PAYMENT STATUS TO TRUE
         await supabase
           .from("bookings")
           .update({ isPaid: true })
           .eq("paymentIntentId", paymentIntent.id);
+
+        // SENDING INVOICE THROUGH MAIL
+        await resend.emails.send({
+          from: "Acme <onboarding@resend.dev>",
+          to: "worktodutta@gmail.com",
+          subject: "Hello world",
+          react: InvoiceTemplate,
+        });
 
         break;
       case "payment_intent.payment_failed":
         // Payment failed
         const failedIntent = data.object;
 
+        // DELETING BOOKING FROM SUPABASE
         await supabase
           .from("bookings")
           .delete()

@@ -123,14 +123,14 @@ export async function resetPasswordWithMail(formData) {
 
   const email = formData.get("email");
 
-  const registeredEmail = await checkIfRegisteredEmail(email);
+  const registeredEmailData = await getGuest(email);
 
-  if (!registeredEmail) {
-    throw new Error("You are not a  registered user");
+  if (!registeredEmailData) {
+    throw new Error("You are not a registered user");
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/recovery/reset-password`,
+    redirectTo: `https://wild-oasis-guests.vercel.app/recovery/reset-password`,
   });
 
   if (error) {
@@ -155,6 +155,8 @@ export async function resetPassword(formData) {
       console.error(error);
       throw new Error("Unable to reset password. Session link has expired");
     }
+  } else {
+    throw new Error("No session code found. Unable to reset password");
   }
 
   const password = formData.get("password");

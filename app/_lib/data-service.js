@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { supabase } from "./supabase/supabaseClient";
 import { eachDayOfInterval } from "date-fns";
+import { createClient } from "./supabase/supabaseServer";
 
 /////////////
 // GET
@@ -206,23 +207,6 @@ export async function updateBooking(id, updatedFields) {
 }
 
 */
-
-/////////////
-// READ
-
-export async function checkIfRegisteredEmail(email) {
-  const { data, error } = await supabase
-    .from("auth.users")
-    .select("id")
-    .eq("email", email);
-
-  if (error) {
-    console.error("Error checking email:", error);
-    throw new Error("There was error verifying your Email");
-  }
-
-  return data.length > 0;
-}
 
 /////////////
 // DELETE
