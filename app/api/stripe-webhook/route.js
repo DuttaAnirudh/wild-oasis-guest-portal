@@ -1,16 +1,19 @@
+import { InvoiceTemplate } from "@/app/_components/InvoiceTemplate";
+import { getCabin } from "@/app/_lib/data-service";
 import { supabase } from "@/app/_lib/supabase/supabaseClient";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
 import { Resend } from "resend";
-import { InvoiceTemplate } from "@/app/_components/InvoiceTemplate";
+import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2024-06-20",
 });
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-// const endpointSecret =
-//   "whsec_2856656f4e0c8ed70acc0d84ef07e7baf753364fc4af1083cfcde1ff3dd83f61";
+// const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+const endpointSecret =
+  "whsec_2856656f4e0c8ed70acc0d84ef07e7baf753364fc4af1083cfcde1ff3dd83f61";
+
 const resend = new Resend(process.env.RESEND_KEY);
 
 export async function POST(req) {
@@ -46,32 +49,12 @@ export async function POST(req) {
     switch (type) {
       case "payment_intent.succeeded":
         // Payment was successful
-        const paymentIntent = data.object;
-
-        // UPDATING SUPABASE PAYMENT STATUS TO TRUE
-        await supabase
-          .from("bookings")
-          .update({ isPaid: true })
-          .eq("paymentIntentId", paymentIntent.id);
-
-        // SENDING INVOICE THROUGH MAIL
-        await resend.emails.send({
-          from: "Acme <onboarding@resend.dev>",
-          to: "worktodutta@gmail.com",
-          subject: "Hello world",
-          react: InvoiceTemplate,
-        });
+        await handlePaymentIntentSucceeded(data.object);
 
         break;
       case "payment_intent.payment_failed":
-        // Payment failed
-        const failedIntent = data.object;
-
-        // DELETING BOOKING FROM SUPABASE
-        await supabase
-          .from("bookings")
-          .delete()
-          .eq("paymentIntentId", failedIntent.id);
+        // Payment has failed
+        await handlePaymentIntentFailed(data.object);
 
         break;
       default:
@@ -83,4 +66,56 @@ export async function POST(req) {
   }
 
   return new Response(JSON.stringify({ received: true }), { status: 200 });
+}
+
+// Function to handle payment_intent.succeeded event
+async function handlePaymentIntentSucceeded(paymentIntent) {
+  // Update the Supabase database and retrieve the updated booking
+  const { data: bookingData, error: bookingDataError } = await supabase
+    .from("bookings")
+    .update({ isPaid: true })
+    .eq("paymentIntentId", paymentIntent.id)
+    .select()
+    .single();
+
+  if (bookingDataError) {
+    throw new bookingDataError(
+      `Error updating database: ${bookingDataError.message}`
+    );
+  }
+
+  console.log("Database updated successfully:", bookingData);
+
+  // Fetching Guest Info for Invoice
+  const { data: guestData } = await supabase
+    .from("guests")
+    .select("*")
+    .eq("id", bookingData.guestId)
+    .single();
+
+  // Fetching Booked Cabin Info for Invoice
+  const cabinData = await getCabin(bookingData.cabinId);
+
+  // Send invoice email
+  await resend.emails.send({
+    from: "Acme <onboarding@resend.dev>",
+    to: guestData.email,
+    subject: "Cabin Booked!",
+    react: (
+      <InvoiceTemplate
+        bookingData={bookingData}
+        guestData={guestData}
+        cabinData={cabinData}
+      />
+    ),
+  });
+}
+
+// Function to handle payment_intent.payment_failed event
+async function handlePaymentIntentFailed(failedIntent) {
+  // Delete the booking from Supabase
+  await supabase
+    .from("bookings")
+    .delete()
+    .eq("paymentIntentId", failedIntent.id);
 }

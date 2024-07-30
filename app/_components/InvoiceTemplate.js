@@ -1,7 +1,7 @@
 import {
   Body,
-  Container,
   Column,
+  Container,
   Head,
   Hr,
   Html,
@@ -12,11 +12,11 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import * as React from "react";
+import { format, parseISO } from "date-fns";
 
 const baseUrl = `https://demo.react.email`;
 
-export const InvoiceTemplate = () => (
+export const InvoiceTemplate = ({ bookingData, guestData, cabinData }) => (
   <Html>
     <Head />
     <Preview>Wild Oasis Booking Receipt</Preview>
@@ -25,17 +25,21 @@ export const InvoiceTemplate = () => (
       <Container style={container}>
         <Section>
           <Row>
-            <Column>
-              <Img
-                src={`${baseUrl}/static/apple-logo.png`}
-                width="42"
-                height="42"
-                alt="Apple Logo"
-              />
+            <Column align="center">
+              <Text style={heading}>Wild Oasis</Text>
+              <Text style={cupomText}>
+                Thank you for choosing Wild Oasis for your upcoming stay in
+                Queenstown, New Zealand! We are delighted to confirm your
+                booking and look forward to providing you with an unforgettable
+                experience.
+              </Text>
             </Column>
-
-            <Column align="right" style={tableCell}>
-              <Text style={heading}>Receipt</Text>
+          </Row>
+        </Section>
+        <Section>
+          <Row>
+            <Column align="center">
+              <Text style={heading2}>Payment Receipt</Text>
             </Column>
           </Row>
         </Section>
@@ -54,7 +58,7 @@ export const InvoiceTemplate = () => (
                         textDecoration: "underline",
                       }}
                     >
-                      alan.turing@gmail.com
+                      {guestData.email}
                     </Link>
                   </Column>
                 </Row>
@@ -62,7 +66,9 @@ export const InvoiceTemplate = () => (
                 <Row>
                   <Column style={informationTableColumn}>
                     <Text style={informationTableLabel}>INVOICE DATE</Text>
-                    <Text style={informationTableValue}>18 Jan 2024</Text>
+                    <Text style={informationTableValue}>
+                      {format(new Date(), "dd MMM yyyy")}
+                    </Text>
                   </Column>
                 </Row>
 
@@ -76,25 +82,25 @@ export const InvoiceTemplate = () => (
                         textDecoration: "underline",
                       }}
                     >
-                      ML4F5L8522
+                      {bookingData.id}
                     </Link>
                   </Column>
-                  {/* <Column style={informationTableColumn}>
-                    <Text style={informationTableLabel}>DOCUMENT NO.</Text>
-                    <Text style={informationTableValue}>186623754793</Text>
-                  </Column> */}
+                  <Column style={informationTableColumn}>
+                    <Text style={informationTableLabel}>Payment ID</Text>
+                    <Text style={informationTableValue}>
+                      {bookingData.paymentIntentId}
+                    </Text>
+                  </Column>
                 </Row>
               </Section>
             </Column>
             <Column style={informationTableColumn} colSpan={2}>
               <Text style={informationTableLabel}>BILLED TO</Text>
+              <Text style={informationTableValue}>{guestData.fullName}</Text>
+              <Text style={informationTableValue}>{guestData.nationality}</Text>
               <Text style={informationTableValue}>
-                Visa .... 7461 (Apple Pay)
+                National ID: {guestData.nationalID}
               </Text>
-              <Text style={informationTableValue}>Alan Turing</Text>
-              <Text style={informationTableValue}>2125 Chestnut St</Text>
-              <Text style={informationTableValue}>San Francisco, CA 94123</Text>
-              <Text style={informationTableValue}>USA</Text>
             </Column>
           </Row>
         </Section>
@@ -105,7 +111,7 @@ export const InvoiceTemplate = () => (
           <Row>
             <Column style={{ width: "64px" }}>
               <Img
-                src={`${baseUrl}/static/apple-hbo-max-icon.jpeg`}
+                src={`${cabinData.image}`}
                 width="64"
                 height="64"
                 alt="HBO Max"
@@ -113,30 +119,21 @@ export const InvoiceTemplate = () => (
               />
             </Column>
             <Column style={{ paddingLeft: "22px" }}>
-              <Text style={productTitle}>Cabin 001</Text>
-              <Text style={productDescription}>Breakfast Included? : NO</Text>
+              <Text style={productTitle}>Cabin {cabinData.name}</Text>
+
               <Text style={productDescription}>
-                From: Aug 20, 2024 - To: Aug 20, 2024
+                From: {format(parseISO(bookingData.startDate), "MMM dd, yyyy")}
               </Text>
-              <Link
-                href="https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc=us&amp;id=1497977514&amp;o=i&amp;type=Subscription%20Renewal"
-                style={productLink}
-                data-saferedirecturl="https://www.google.com/url?q=https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc%3Dus%26id%3D1497977514%26o%3Di%26type%3DSubscription%2520Renewal&amp;source=gmail&amp;ust=1673963081204000&amp;usg=AOvVaw2DFCLKMo1snS-Swk5H26Z1"
-              >
-                Write a Review
-              </Link>
-              <span style={divisor}>|</span>
-              <Link
-                href="https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/reportAProblem?a=1497977514&amp;cc=us&amp;d=683263808&amp;o=i&amp;p=29065684906671&amp;pli=29092219632071&amp;s=1"
-                style={productLink}
-                data-saferedirecturl="https://www.google.com/url?q=https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/reportAProblem?a%3D1497977514%26cc%3Dus%26d%3D683263808%26o%3Di%26p%3D29065684906671%26pli%3D29092219632071%26s%3D1&amp;source=gmail&amp;ust=1673963081204000&amp;usg=AOvVaw3y47L06B2LTrL6qsmaW2Hq"
-              >
-                Report a Problem
-              </Link>
+              <Text style={productDescription}>
+                To: {format(parseISO(bookingData.endDate), "MMM dd, yyyy")}
+              </Text>
+              <Text style={productDescription}>
+                Breakfast Included? : {guestData.hasBreakfast ? "YES" : "NO"}
+              </Text>
             </Column>
 
             <Column style={productPriceWrapper} align="right">
-              <Text style={productPrice}>$1499.99</Text>
+              <Text style={productPrice}>${bookingData.cabinPrice}</Text>
             </Column>
           </Row>
         </Section>
@@ -148,50 +145,31 @@ export const InvoiceTemplate = () => (
             </Column>
             <Column style={productPriceVerticalLine}></Column>
             <Column style={productPriceLargeWrapper}>
-              <Text style={productPriceLarge}>$1499.99</Text>
+              <Text style={productPriceLarge}>${bookingData.totalPrice}</Text>
             </Column>
           </Row>
         </Section>
         <Hr style={productPriceLineBottom} />
-        <Section>
-          <Row>
-            <Column align="center" style={block}>
-              <Img
-                src={`${baseUrl}/static/apple-card-icon.png`}
-                width="60"
-                height="17"
-                alt="Apple Card"
-              />
-            </Column>
-          </Row>
-        </Section>
-        <Section>
-          <Row>
-            <Column align="center" style={ctaTitle}>
-              <Text style={ctaText}>Save 3% on all your Apple purchases.</Text>
-            </Column>
-          </Row>
-        </Section>
 
-        <Section>
-          <Row>
-            <Column align="center" style={footerIcon}>
-              <Img
-                src={`/public/logo.png`}
-                width="26"
-                height="26"
-                alt="Wild Oasis"
-              />
-            </Column>
-          </Row>
-        </Section>
+        <Text style={cupomText}>
+          Should you have any special requests or need further assistance,
+          please do not hesitate to contact us at (+64) 4444-4444 or
+          wildoasis@travel.com. Our team is here to ensure that your stay is as
+          comfortable and enjoyable as possible.
+        </Text>
+
         <Text style={footerLinksWrapper}>
-          <Link href="">Homepage</Link> • <Link href="">FAQs</Link> •{" "}
-          <Link href="">Contact Us </Link>
+          <Link href="https://wild-oasis-guests.vercel.app/">Homepage</Link> •{" "}
+          <Link href="https://wild-oasis-guests.vercel.app/account/reservations">
+            Reservation
+          </Link>{" "}
+          • <Link href="https://wild-oasis-guests.vercel.app/">FAQs</Link> •{" "}
+          <Link href="https://wild-oasis-guests.vercel.app/#contact">
+            Contact Us{" "}
+          </Link>
         </Text>
         <Text style={footerCopyright}>
-          Copyright © 2024 Wild Oasis. <br />{" "}
-          <Link href="">All rights reserved</Link>
+          Copyright © {new Date().getFullYear()} Wild Oasis. <br />{" "}
         </Text>
       </Container>
     </Body>
@@ -222,13 +200,19 @@ const tableCell = { display: "table-cell" };
 
 const heading = {
   fontSize: "32px",
+  fontWeight: "500",
+  color: "#c69963",
+};
+
+const heading2 = {
+  fontSize: "26px",
   fontWeight: "300",
-  color: "#888888",
+  color: "#c69963",
 };
 
 const cupomText = {
   textAlign: "center",
-  margin: "36px 0 40px 0",
+  margin: "24px 0 28px 0",
   fontSize: "14px",
   fontWeight: "500",
   color: "#111111",
