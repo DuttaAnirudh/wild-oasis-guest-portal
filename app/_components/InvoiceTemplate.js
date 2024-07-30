@@ -218,10 +218,6 @@ const cupomText = {
   color: "#111111",
 };
 
-const supStyle = {
-  fontWeight: "300",
-};
-
 const informationTable = {
   borderCollapse: "collapse",
   borderSpacing: "0px",
@@ -284,19 +280,6 @@ const productDescription = {
   ...resetText,
 };
 
-const productLink = {
-  fontSize: "12px",
-  color: "rgb(0,112,201)",
-  textDecoration: "none",
-};
-
-const divisor = {
-  marginLeft: "4px",
-  marginRight: "4px",
-  color: "rgb(51,51,51)",
-  fontWeight: 200,
-};
-
 const productPriceTotal = {
   margin: "0",
   color: "rgb(102,102,102)",
@@ -339,47 +322,6 @@ const productPriceLargeWrapper = { display: "table-cell", width: "90px" };
 
 const productPriceLineBottom = { margin: "0 0 75px 0" };
 
-const block = { display: "block" };
-
-const ctaTitle = {
-  display: "block",
-  margin: "15px 0 0 0",
-};
-
-const ctaText = { fontSize: "24px", fontWeight: "500" };
-
-const walletWrapper = { display: "table-cell", margin: "10px 0 0 0" };
-
-const walletLink = { color: "rgb(0,126,255)", textDecoration: "none" };
-
-const walletImage = {
-  display: "inherit",
-  paddingRight: "8px",
-  verticalAlign: "middle",
-};
-
-const walletBottomLine = { margin: "65px 0 20px 0" };
-
-const footerText = {
-  fontSize: "12px",
-  color: "rgb(102,102,102)",
-  margin: "0",
-  lineHeight: "auto",
-  marginBottom: "16px",
-};
-
-const footerTextCenter = {
-  fontSize: "12px",
-  color: "rgb(102,102,102)",
-  margin: "20px 0",
-  lineHeight: "auto",
-  textAlign: "center",
-};
-
-const footerLink = { color: "rgb(0,115,255)" };
-
-const footerIcon = { display: "block", margin: "40px 0 0 0" };
-
 const footerLinksWrapper = {
   margin: "8px 0 0 0",
   textAlign: "center",
@@ -392,10 +334,4 @@ const footerCopyright = {
   textAlign: "center",
   fontSize: "12px",
   color: "rgb(102,102,102)",
-};
-
-const walletLinkText = {
-  fontSize: "14px",
-  fontWeight: "400",
-  textDecoration: "none",
 };

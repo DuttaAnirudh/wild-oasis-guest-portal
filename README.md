@@ -9,12 +9,12 @@ This customer-facing website is specifically designed for guests to use, allowin
 
 - **Framework**: Next.js
 - **UI State Management**: Context API
-- **Authentication & Authorization**: Next-Auth / Auth.js
+- **Authentication & Authorization**: Auth.js & Supabase
 - **Authentication Provider**: Google Cloud OAuth 2.0
 - **DB/API**: Supabase
-- **User Management**: Supabase
 - **Styling**: TailwindCSS
 - **Payment Gateway**: Stripe
+- **Invoice**: Resend & React Email
 - **Additional Libraries**: date-fns, react-day-picker, heroicons
 
 ## Potential Users
@@ -62,4 +62,4 @@ This customer-facing website is specifically designed for guests to use, allowin
 - Add responsiveness to the web app. Currently, the app is only optimized for large screens (i.e., desktop).
 - ~~Accept direct sign-ups and sign-ins using Supabase authentication rather than just Google sign-up.~~ [✅ Feature Added]
 - ~~Allow Supabase signed up users to change password.~~ [✅ Feature Added]
-- Send a confirmation email to the user on successful booking of a cabin.
+- ~~Send a confirmation email and payment invoice to the user on successful booking of a cabin.~~ [✅ Feature Added]

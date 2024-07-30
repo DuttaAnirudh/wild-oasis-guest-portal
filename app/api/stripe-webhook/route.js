@@ -9,10 +9,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2024-06-20",
 });
 
-// const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-const endpointSecret =
-  "whsec_2856656f4e0c8ed70acc0d84ef07e7baf753364fc4af1083cfcde1ff3dd83f61";
+// const endpointSecret =
+//   "whsec_2856656f4e0c8ed70acc0d84ef07e7baf753364fc4af1083cfcde1ff3dd83f61"; // TEST SERVER STRIPE
 
 const resend = new Resend(process.env.RESEND_KEY);
 
