@@ -160,6 +160,7 @@ export async function resetPassword(formData) {
   }
 
   const password = formData.get("password");
+
   const { error } = await supabase.auth.updateUser({
     password,
   });
