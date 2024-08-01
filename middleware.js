@@ -27,7 +27,3 @@ export const config = {
 };
 
 // export const middleware = auth;
-
-// export const config = {
-//   matcher: ["/account"], // The routes to be protected
-// };

@@ -91,12 +91,12 @@ function StripePage({ amount, bookingId }) {
       {errorMessage && <p>{errorMessage}</p>}
       <button
         type="submit"
-        className={`mt-2 w-full py-2 bg-purple-50 text-accent-900 text-xl uppercase font-semibold ${
+        className={`mt-2 w-full py-2 bg-primary-50 text-accent-900 text-xl uppercase font-semibold ${
           !isLoading ? "hover:bg-accent-900 hover:text-primary-50" : ""
         } transition-all`}
         disabled={isLoading}
       >
-        {!isLoading ? "Pay" : "Processing..."}
+        {!isLoading ? "Pay" : `Processing... `}
       </button>
     </form>
   );

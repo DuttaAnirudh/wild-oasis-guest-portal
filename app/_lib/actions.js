@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
 import {
-  checkIfRegisteredEmail,
   createGuest,
   deleteGuest,
   getBookings,
