@@ -34,7 +34,7 @@ export default function Navigation() {
 
         <li>
           <Link
-            href="/#contact"
+            href="/contact"
             className="hover:text-accent-400 transition-colors  text-lg"
           >
             Contact
