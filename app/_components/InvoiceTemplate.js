@@ -163,8 +163,8 @@ export const InvoiceTemplate = ({ bookingData, guestData, cabinData }) => (
           <Link href="https://wild-oasis-guests.vercel.app/account/reservations">
             Reservation
           </Link>{" "}
-          • <Link href="https://wild-oasis-guests.vercel.app/">FAQs</Link> •{" "}
-          <Link href="https://wild-oasis-guests.vercel.app/#contact">
+          • <Link href="https://wild-oasis-guests.vercel.app/faqs">FAQs</Link> •{" "}
+          <Link href="https://wild-oasis-guests.vercel.app/contact">
             Contact Us{" "}
           </Link>
         </Text>

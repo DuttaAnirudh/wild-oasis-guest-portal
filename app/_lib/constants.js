@@ -1,3 +1,22 @@
+export const navLinks = [
+  {
+    name: "About Us",
+    href: "/about",
+  },
+  {
+    name: "Cabins",
+    href: "/cabins",
+  },
+  {
+    name: "Guest Area",
+    href: "/account",
+  },
+  {
+    name: "Contact Us",
+    href: "/contact",
+  },
+];
+
 export const activities = [
   {
     name: "Hiking & Biking Trails",

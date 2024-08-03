@@ -28,6 +28,10 @@
       transform: rotate(1turn);
     }
   }
+
+  .rotate-x {
+    transform: rotateX(180deg);
+  }
 }
 
 /* For data picker */

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/bg.png";
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid";
+import { caveat } from "../layout";
 
 export default function Hero() {
   return (
@@ -16,34 +17,40 @@ export default function Hero() {
       />
 
       <div className="relative z-10 text-center flex flex-col items-center gap-8 pt-[4rem]">
+        <h2 className={`${caveat.className} antialiased text-7xl font-bold`}>
+          Explore Paradise in
+        </h2>
         <h1
-          className="text-8xl text-primary-50 mb-4 tracking-tight 
-        font-normal"
+          className="text-9xl text-accent-600 tracking-wider  z-10
+        font-extrabold relative mb-24 "
         >
-          Welcome to{" "}
+          THE WILD OASIS
           <span
-            className="text-accent-500 bg-primary-950/20 
-          backdrop-blur-2xl pt-4 px-4 rounded-2xl underline decoration-2 decoration-wavy decoration-primary-50 underline-offset-8"
+            className="rotate-x absolute bottom-6 left-0 origin-bottom 
+          text-9xl z-10 bg-gradient-to-t from-accent-600 to-transparent 
+          bg-clip-text text-transparent opacity-60  "
           >
-            Paradise
+            THE WILD OASIS
           </span>
         </h1>
-        <h2 className="text-2xl text-primary-50">
-          Your Serene Escape in NewZealand
-        </h2>
+
         <Link
           href="/cabins"
-          className="mt-20 bg-accent-800/5 backdrop-blur-sm px-16 py-4 
-          text-accent-300 text-xl uppercase tracking-widest rounded-[2rem]
-          font-semibold group hover:bg-accent-400 hover:text-primary-900 
-          hover:backdrop-blur-none hover:-translate-y-1 active:translate-y-1 
-          transition-all duration-300 flex items-start justify-center gap-3"
+          className={`${caveat.className} antialiased mt-20  bg-amber-900 px-12 py-3
+          text-amber-400 text-3xl uppercase tracking-widest rounded-[2rem]
+          font-extrabold shadow-sm shadow-purple-50/50 hover:-translate-y-1 active:translate-y-1 
+          transition-all duration-300 flex items-center justify-center gap-3 group`}
         >
           Explore
-          <span className="w-6 h-6 group-hover:translate-x-4 group-hover:scale-[1.2] transition-all duration-100">
+          <span className="w-6 h-6 group-hover:translate-x-2 group-hover:scale-[1.2] transition-all duration-100">
             <ArrowRightCircleIcon />
           </span>
         </Link>
+
+        <h2 className="text-2xl text-primary-50 mt-12 font-extralight max-w-[34rem]">
+          Nestled in the heart of Queenstown, We offer a tranquil escape
+          surrounded by nature&apos;s beauty.
+        </h2>
       </div>
     </section>
   );
