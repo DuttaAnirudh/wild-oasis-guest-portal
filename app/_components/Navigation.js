@@ -8,8 +8,8 @@ export default function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="z-10 text-xl bg-primary-50/15 backdrop-blur-lg px-12 py-1.5 rounded-2xl border border-primary-50/20">
-      <ul className="flex gap-20 items-center">
+    <nav className="hidden lg:block z-10 text-xl bg-primary-50/15 backdrop-blur-lg px-8 xl:px-12 py-1.5 rounded-2xl border border-primary-50/20">
+      <ul className="flex gap-10 xl:gap-20 items-center">
         {navLinks.map((item) => (
           <li key={item.name}>
             <Link

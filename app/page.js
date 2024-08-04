@@ -10,7 +10,7 @@ export default async function Home() {
   const cabins = await getCabins();
 
   return (
-    <div className="mt-24 ">
+    <div className="mt-8 md:mt-16 lg:mt-24">
       {/* HERO SECTION */}
       <Hero />
 

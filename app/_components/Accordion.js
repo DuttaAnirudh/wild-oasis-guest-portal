@@ -14,8 +14,12 @@ function Accordion({ id, title, text, curOpen, setCurOpen }) {
         isOpen ? "border-accent-500 " : ""
       }`}
     >
-      <div className="flex items-center justify-between w-full text-2xl">
-        <p className={`font-light ${isOpen ? "text-accent-500 text-3xl" : ""}`}>
+      <div className="flex items-start justify-between gap-4 w-full max-[500px]:text-xl text-2xl">
+        <p
+          className={`font-light ${
+            isOpen ? "text-accent-500 max-[500px]:text-2xl text-3xl" : ""
+          }`}
+        >
           {title}
         </p>
         <p className="group-hover:text-accent-500 transition-all ">

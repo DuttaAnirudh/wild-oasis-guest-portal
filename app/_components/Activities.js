@@ -4,10 +4,10 @@ import { activities } from "@/app/_lib/constants";
 export default function Activities() {
   return (
     <section
-      className="h-screen flex flex-col items-center justify-center 
-    gap-8 my-12"
+      className="h-auto lg:h-screen flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8
+     my-28 lg:my-12"
     >
-      <h3 className="text-4xl uppercase semibold text-center text-primary-50">
+      <h3 className="text-2xl sm:text-3xl md:text-4xl uppercase semibold text-center text-primary-50">
         What you can&apos;t do at your <br /> home,{" "}
         <span className="text-accent-500">can be done here</span>
       </h3>
@@ -21,12 +21,12 @@ export default function Activities() {
         </span>
       </p>
 
-      <div className="flex items-center justify-center gap-6 my-8 w-full">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 my-8 w-full px-4 lg:px-2">
         {activities.map((activity) => (
           <div className="relative w-full h-full group" key={activity.name}>
             {/* Image Container */}
             <div
-              className="relative max-w-[25rem] h-[25rem] brightness-75 
+              className="relative w-full lg:max-w-[25rem] min-h-[19rem] max-h-[25rem] brightness-75 
             group-hover:grayscale group-hover:blur-[2px]"
             >
               <Image
@@ -40,7 +40,7 @@ export default function Activities() {
               {activity.name}
             </h2>
             <p
-              className="absolute bottom-[6rem] left-4 w-[20rem] text-left 
+              className="absolute bottom-[6rem] left-4 max-w-[20rem] text-left 
             font-light text-xl text-primary-50 translate-y-2 opacity-0
             group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500"
             >
@@ -51,7 +51,7 @@ export default function Activities() {
       </div>
 
       <h2
-        className="font-medium text-2xl uppercase text-primary-50 
+        className="font-medium  text-xl md:text-2xl uppercase text-primary-50 
       text-center max-w-[30rem] tracking-widest mt-8"
       >
         Explore Queenstown and{" "}

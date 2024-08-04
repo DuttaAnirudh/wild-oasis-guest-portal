@@ -32,6 +32,10 @@
   .rotate-x {
     transform: rotateX(180deg);
   }
+
+  .text-shodow-sm {
+    text-shadow: 1px 1px 2px #141c24, 0 0 1em #141c24, 0 0 0.2em #141c24;
+  }
 }
 
 /* For data picker */
