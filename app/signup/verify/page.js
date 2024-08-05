@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 mt-20">
-      <h4 className="text-3xl text-accent-500 underline underline-offset-4 decoration-1">
+    <div className="flex flex-col items-center justify-center gap-6 mt-8 lg:mt-20">
+      <h4 className="text-3xl text-accent-500 underline underline-offset-4 decoration-1 text-center">
         Verify Yourself
       </h4>
       <p className="text-xl text-accent-300 w-[33rem] text-center">

@@ -10,7 +10,7 @@ function FAQHomepage() {
   const [curOpen, setCurOpen] = useState(null);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-8">
+    <div className="h-auto flex flex-col items-center justify-center gap-8">
       {/* HEADING */}
       <div className=" flex flex-col items-center justify-start gap-2 uppercase max-[490px]:text-2xl text-3xl sm:text-4xl">
         <h2>

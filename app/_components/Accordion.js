@@ -10,9 +10,11 @@ function Accordion({ id, title, text, curOpen, setCurOpen }) {
   return (
     <div
       onClick={handleToggle}
-      className={`flex flex-col items-start justify-start w-full border-b pb-4 mt-12 px-8 cursor-pointer group hover:border-accent-500 transition-all ${
-        isOpen ? "border-accent-500 " : ""
-      }`}
+      className={`flex flex-col items-start justify-start w-full border-b 
+        pb-1.5 sm:pb-2.5 md:pb-3.5 lg:pb-4 mt-4 sm:mt-6 md:mt-8 lg:mt-12 px-8 
+        cursor-pointer group hover:border-accent-500 transition-all ${
+          isOpen ? "border-accent-500 " : ""
+        }`}
     >
       <div className="flex items-start justify-between gap-4 w-full max-[500px]:text-xl text-2xl">
         <p

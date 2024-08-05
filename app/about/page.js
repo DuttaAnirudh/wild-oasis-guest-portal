@@ -15,9 +15,9 @@ export default async function Page() {
   const cabins = await getCabins();
 
   return (
-    <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+    <div className="grid grid-cols-5 sm:max-lg:grid-cols-4 gap-x-8 gap-y-16 text-lg items-center  px-4 xl:px-0 my-6">
+      <div className="col-span-full lg:col-span-3">
+        <h1 className="text-4xl mb-10 text-accent-400 font-medium text-center lg:text-left">
           Welcome to The Wild Oasis
         </h1>
 
@@ -43,7 +43,7 @@ export default async function Page() {
         </div>
       </div>
 
-      <div className="col-span-2">
+      <div className="col-span-full sm:col-span-2">
         <Image
           src={about_1}
           placeholder="blur"
@@ -52,7 +52,7 @@ export default async function Page() {
         />
       </div>
 
-      <div className="col-span-2">
+      <div className="col-span-full sm:col-span-2">
         <Image
           src={about_2}
           placeholder="blur"
@@ -61,12 +61,12 @@ export default async function Page() {
         />
       </div>
 
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+      <div className="col-span-full lg:col-span-3">
+        <h1 className="text-4xl mb-10 text-accent-400 font-medium text-center lg:text-left">
           Managed by our family since 1962
         </h1>
 
-        <div className="space-y-8">
+        <div className="space-y-8 flex flex-col items-center">
           <p>
             Since 1962, The Wild Oasis has been a cherished family-run retreat.
             Started by our grandparents, this haven has been nurtured with love
@@ -82,14 +82,12 @@ export default async function Page() {
             is like coming home.
           </p>
 
-          <div>
-            <Link
-              href="/cabins"
-              className="inline-block mt-4 bg-accent-500 px-8 py-2 text-primary-800 text-lg font-semibold rounded-full hover:bg-accent-600 transition-all"
-            >
-              Explore our luxury cabins
-            </Link>
-          </div>
+          <Link
+            href="/cabins"
+            className="self-center lg:self-start inline-block mt-4 bg-accent-500 px-8 py-2 text-primary-800 text-lg font-semibold rounded-full hover:bg-accent-600 transition-all"
+          >
+            Explore our luxury cabins
+          </Link>
         </div>
       </div>
     </div>

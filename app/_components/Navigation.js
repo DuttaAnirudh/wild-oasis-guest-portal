@@ -18,7 +18,7 @@ export default function Navigation() {
                 pathname.startsWith(item.href)
                   ? "text-accent-500 font-semibold uppercase underline underline-offset-4"
                   : ""
-              } hover:text-accent-400 transition-colors  text-lg`}
+              } hover:text-accent-400 transition-colors text-base xl:text-lg`}
             >
               {item.name}
             </Link>

@@ -6,13 +6,13 @@ function CabinCard({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
 
   return (
-    <div className="flex border-primary-800 border">
-      <div className="flex-1 relative">
+    <div className="flex flex-col md:flex-row border-primary-800 border">
+      <div className="md:flex-1 relative max-md:h-[14rem] max-[768px]:w-full">
         <Image
           src={image}
           fill
           alt={`Cabin ${name}`}
-          className="object-cover border-r border-primary-800"
+          className="object-cover object-center border-r border-primary-800"
         />
       </div>
 
@@ -32,10 +32,10 @@ function CabinCard({ cabin }) {
           <p className="flex gap-3 justify-end items-baseline">
             {discount > 0 ? (
               <>
-                <span className="text-3xl font-[350]">
+                <span className="text-3xl font-[350] text-green-500">
                   ${regularPrice - discount}
                 </span>
-                <span className="line-through font-semibold text-primary-600">
+                <span className="line-through decoration-red-500 font-semibold text-primary-600">
                   ${regularPrice}
                 </span>
               </>

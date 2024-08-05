@@ -1,7 +1,7 @@
 import SignInButton from "@/app/_components/SignInButton";
-import Logo from "../_components/Logo";
 import Link from "next/link";
 import { loginSupabase } from "../_lib/actions";
+import Logo from "@/app/_components/Logo";
 
 export const metadata = {
   title: "Login",
@@ -9,9 +9,9 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center justify-center h-full w-[30rem] mx-auto">
-      <div className="flex flex-col items-center justify-center gap-2 w-[28rem] border border-accent-400 py-16 px-10 rounded-2xl">
-        <Logo />
+    <div className="flex flex-col items-center justify-center h-full  max-w-[30rem] sm:w-[30rem] mx-auto px-2 sm:px-4 xl:px-0">
+      <div className="flex flex-col items-center justify-center gap-2  max-w-[28rem] sm:w-[28rem] sm:border border-accent-400 sm:py-16 sm:px-10 rounded-2xl">
+        <Logo type="basic" />
 
         <h3 className="my-4 text-accent-500 text-xl font-light capitalize">
           Log in to your account

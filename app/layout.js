@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
-        <p className="text-center py-3">
+        <p className="text-center max-[400px]:text-xs text-sm sm:text-base py-3 font-light opacity-85">
           &copy; Copyright Wild Oasis {new Date().getFullYear()}
         </p>
       </body>

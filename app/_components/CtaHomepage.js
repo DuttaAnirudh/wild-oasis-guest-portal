@@ -43,9 +43,9 @@ export default function CtaHomepage() {
             className="relative lg:absolute lg:bottom-0 lg:right-0 bg-primary-950 
            max-[1024px]:rounded-sm lg:rounded-tl-[2rem] px-12 py-4 text-2xl text-accent-300 
             uppercase font-semibold underline underline-offset-8 decoration-amber-500 lg:no-underline 
-            lg:border-t lg:border-l border-accent-300 
-            hover:bg-amber-900 hover:text-amber-500 transition-all 
-            duration-300"
+            lg:border-t lg:border-l border-accent-300 max-[1024px]:active:bg-amber-900 max-[1024px]:active:text-primary-50
+            lg:hover:bg-amber-900 lg:hover:text-amber-500 transition-all 
+            lg:duration-300"
           >
             Book Now!
           </Link>
