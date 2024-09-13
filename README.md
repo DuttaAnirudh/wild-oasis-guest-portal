@@ -17,30 +17,6 @@ This customer-facing website is specifically designed for guests to use, allowin
 - **Invoice**: Resend & React Email
 - **Additional Libraries**: date-fns, react-day-picker, heroicons
 
-## Potential Users
-
-- Potential guests and actual guests
-
-## About
-
-- Guests can get information about each cabin and see booked dates
-- Guests can filter cabins by their maximum guest capacity
-
-## Reservations
-
-- Guests can reserve a cabin for a certain date range
-- Guests can view all their past and future reservations
-- Guests can update or cancel their reservations
-
-## Authentication
-
-- Guests need to sign up and log in using their Google email IDs before they can reserve a cabin and perform any operations
-- On sign up, each guest gets a profile in the Supabase DB
-
-## Profile
-
-- Guests can set and update basic data about their profile to make check-in at the hotel faster
-
 ## Pages
 
 - **Homepage**: /
@@ -55,6 +31,43 @@ This customer-facing website is specifically designed for guests to use, allowin
 - **Checkout Page**: /checkout/:bookingId
 - **Recover Forgotten Password**: /recovery/forgot-password
 - **Recover Reset Password**: /recovery/reset-password?:sessionCode
+
+## Features
+
+### Authentication
+
+- Only authorized users can log in and use the app.
+- Users are authenticated via Supabase authentication and Google OAuth 2.0.
+- Direct sign-ups and sign-ins using Supabase are supported, allowing users to register without Google.
+- Supabase-signed-up users can change their password.
+- Two-factor authentication through email verification.
+- On sign-up, each guest receives a profile in the Supabase DB.
+
+### Cabins
+
+- Guests can browse all available cabins with details such as cabin photo, name, capacity, price, and current discounts.
+- Guests can filter cabins by maximum guest capacity and check available dates.
+
+### Reservations
+
+- Guests can reserve a cabin for specific date ranges.
+- Guests can view, update, or cancel their past and future reservations.
+- **Stripe Integration**: A payment gateway is integrated using Stripe to allow secure online payments during the booking process.
+- Guests receive a confirmation email and payment invoice upon successful booking.
+
+### Profile
+
+- Guests can create and update their profiles, storing personal details to make the check-in process faster.
+- Guests can update personal information, change their password, and manage profile details.
+
+### Notifications and Emails
+
+- **Email Confirmation**: Guests receive a confirmation email upon successful booking.
+- **Payment Invoice**: A detailed payment invoice is emailed to guests after confirming the booking through Stripe.
+
+### Responsive Design
+
+- The app is fully responsive and optimized for mobile, tablet, and desktop screens, ensuring a seamless user experience across devices.
 
 ## Improvements
 

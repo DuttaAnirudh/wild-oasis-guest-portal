@@ -84,8 +84,6 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
     );
   }
 
-  console.log("Database updated successfully:", bookingData);
-
   // Fetching Guest Info for Invoice
   const { data: guestData } = await supabase
     .from("guests")

@@ -12,7 +12,6 @@ function StripePage({ amount, bookingId }) {
   const elements = useElements();
 
   const [clientSecret, setClientSecret] = useState();
-  const [paymentIntentId, setPaymentIntentId] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,8 +35,8 @@ function StripePage({ amount, bookingId }) {
         }
 
         const data = await response.json();
+
         setClientSecret(data.clientSecret);
-        setPaymentIntentId(data.paymentIntentId);
       } catch (error) {
         console.error("Error creating payment intent:", error);
         setErrorMessage("Error creating payment intent. Please try again.");
