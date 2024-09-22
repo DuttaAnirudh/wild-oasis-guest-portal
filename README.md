@@ -72,7 +72,7 @@ This customer-facing website is specifically designed for guests to use, allowin
 ## Improvements
 
 - ~~Currently, the website accepts no online payments. This can be improved by adding a payment gateway like Stripe or Razorpay for online payments.~~ [✅ Feature Added]
-- Add responsiveness to the web app. Currently, the app is only optimized for large screens (i.e., desktop).
+- ~~Add responsiveness to the web app. Currently, the app is only optimized for large screens (i.e., desktop).~~ [✅ Feature Added]
 - ~~Accept direct sign-ups and sign-ins using Supabase authentication rather than just Google sign-up.~~ [✅ Feature Added]
 - ~~Allow Supabase signed up users to change password.~~ [✅ Feature Added]
 - ~~Send a confirmation email and payment invoice to the user on successful booking of a cabin.~~ [✅ Feature Added]

@@ -13,17 +13,19 @@ const navLinks = [
   {
     name: "Home",
     href: "/account",
-    icon: <HomeIcon className="h-5 w-5 text-primary-600" />,
+    icon: <HomeIcon className="h-6 w-6 lg:h-5 lg:w-5 text-primary-600" />,
   },
   {
     name: "Reservations",
     href: "/account/reservations",
-    icon: <CalendarDaysIcon className="h-5 w-5 text-primary-600" />,
+    icon: (
+      <CalendarDaysIcon className="h-6 w-6 lg:h-5 lg:w-5 text-primary-600" />
+    ),
   },
   {
     name: "Guest profile",
     href: "/account/profile",
-    icon: <UserIcon className="h-5 w-5 text-primary-600" />,
+    icon: <UserIcon className="h-6 w-6 lg:h-5 lg:w-5 text-primary-600" />,
   },
 ];
 
@@ -36,17 +38,21 @@ function SideNavigation() {
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 
-                ${pathname === link.href ? "bg-primary-900" : ""}`}
+              className={`py-4 px-5 lg:py-3 lg:px-5 transition-colors flex items-center gap-4 font-semibold  
+                ${
+                  pathname === link.href
+                    ? "bg-accent-500 rounded-lg text-primary-900"
+                    : "text-primary-200 hover:bg-primary-900 hover:text-primary-100 "
+                }`}
               href={link.href}
             >
               {link.icon}
-              <span>{link.name}</span>
+              <span className="hidden lg:block">{link.name}</span>
             </Link>
           </li>
         ))}
 
-        <li className="mt-auto">
+        <li className="mt-auto hidden lg:block">
           <SignOutButton />
         </li>
       </ul>

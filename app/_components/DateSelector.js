@@ -37,7 +37,7 @@ function DateSelector({ cabin, settings, bookedDates }) {
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
-        className="pt-12 place-self-center"
+        className="pt-5 sm:pt-8 md:pt-10 lg:pt-12 place-self-center"
         mode="range"
         onSelect={setRange}
         selected={displayRange}
@@ -54,9 +54,9 @@ function DateSelector({ cabin, settings, bookedDates }) {
         }
       />
 
-      <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
-        <div className="flex items-baseline gap-6">
-          <p className="flex gap-2 items-baseline">
+      <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-between px-8 py-2 sm:py-0 bg-accent-500 text-primary-800 min-h-[72px] mt-4 md:mt-0">
+        <div className="flex flex-col sm:flex-row items-center sm:items-baseline gap-1 sm:gap-6">
+          <p className="flex gap-2 items-center">
             {discount > 0 ? (
               <>
                 <span className="text-2xl">${regularPrice - discount}</span>
@@ -71,11 +71,11 @@ function DateSelector({ cabin, settings, bookedDates }) {
           </p>
           {numNights ? (
             <>
-              <p className="bg-accent-600 px-3 py-2 text-2xl">
+              <p className="bg-accent-600 px-1.5 py-0.5 sm:px-3 sm:py-1.5 text-2xl rounded-lg">
                 <span>&times;</span> <span>{numNights}</span>
               </p>
               <p>
-                <span className="text-lg font-bold uppercase">Total</span>{" "}
+                <span className="text-lg font-bold uppercase">Total: </span>{" "}
                 <span className="text-2xl font-semibold">${cabinPrice}</span>
               </p>
             </>
@@ -84,7 +84,7 @@ function DateSelector({ cabin, settings, bookedDates }) {
 
         {range.from || range.to ? (
           <button
-            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+            className="border border-primary-800 px-2 py-1 lg:py-2 lg:px-4 ml-2 text-sm font-semibold rounded-lg"
             onClick={resetRange}
           >
             Clear

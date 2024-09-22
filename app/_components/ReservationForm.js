@@ -32,7 +32,7 @@ function ReservationForm({ cabin, user }) {
   const createBookingWithData = createBooking.bind(null, bookingData);
 
   return (
-    <div className="scale-[1.01]">
+    <div className="md:scale-[1.01]">
       <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-center items-center gap-2">
         <p>Logged in as</p>
 
@@ -79,13 +79,13 @@ function ReservationForm({ cabin, user }) {
           />
         </div>
 
-        <div className="flex justify-end items-center gap-6">
+        <div className="flex justify-center sm:justify-end items-center gap-6">
           {!startDate && !endDate ? (
             <p className="text-primary-300 text-base">
               Start by selecting dates
             </p>
           ) : (
-            <ButtonForm>Reserve now</ButtonForm>
+            <ButtonForm>Reserve Now</ButtonForm>
           )}
         </div>
       </form>

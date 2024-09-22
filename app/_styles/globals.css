@@ -45,3 +45,12 @@
   --rdp-background-color: theme("colors.accent.600") !important;
   margin: 0 !important;
 }
+
+@media (max-width: 500px) {
+  .rdp-months {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-items: center;
+  }
+}
