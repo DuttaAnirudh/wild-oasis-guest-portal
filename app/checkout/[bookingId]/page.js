@@ -34,8 +34,8 @@ export default async function Page({ params }) {
   const cabin = await getCabin(cabinId);
 
   return (
-    <div className=" w-full  flex items-center justify-center max-w-[90%] mx-auto mt-20 gap-8">
-      <div className="flex-1 self-start">
+    <div className=" w-full flex flex-col lg:flex-row items-center justify-center max-w-[90%] mx-auto mt-20 gap-8">
+      <div className="flex-1 sellf-center lg:self-start">
         <CheckoutBookingDetails bookingData={booking} cabinData={cabin} />
       </div>
 

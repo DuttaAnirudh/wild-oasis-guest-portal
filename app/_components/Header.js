@@ -1,6 +1,7 @@
 import Navigation from "@/app/_components/Navigation";
 import Logo from "@/app/_components/Logo";
-import LogInOutHeader from "./LogInOutHeader";
+import MobileHeader from "./MobileHeader";
+import MobileNavigation from "./MobileNavigation";
 
 function Header() {
   return (
@@ -8,7 +9,7 @@ function Header() {
       <div className="flex justify-between items-center max-w-7xl mx-auto ">
         <Logo />
         <Navigation />
-        <LogInOutHeader />
+        <MobileHeader /> {/* Login/Logout + Mobile Navigation */}
       </div>
     </header>
   );

@@ -23,25 +23,25 @@ function CheckoutBookingDetails({ bookingData, cabinData }) {
 
       {/* Cabin Name */}
       <h3
-        className="row-[1/2] col-[3/6] ml-2 text-xl font-semibold 
+        className="row-[1/2] col-[3/9] sm:col-[3/6] ml-2 text-lg sm:text-xl font-semibold 
       text-accent-500 uppercase "
       >
         Cabin {cabinData.name}
       </h3>
 
-      <p className="row-[2/3] col-[3/8] ml-2">
+      <p className="row-[2/3] col-[3/9] sm:col-[3/8] ml-2 text-sm sm:text-base">
         Cabin Price (for {bookingData.numGuests} Guests)
       </p>
 
       {/* Total Cabin Price */}
       <p
-        className="row-[2/3] col-[9/11] justify-self-end mr-2 
+        className="row-[2/3] col-[9/12] sm::col-[9/11] justify-self-end mr-2 
       font-semibold tracking-wider"
       >
         ${bookingData.cabinPrice}
       </p>
 
-      <p className="row-[3/4] col-[3/7] ml-2">
+      <p className="row-[3/4] col-[3/8] sm:col-[3/7] ml-2 text-sm sm:text-base">
         Breakfast Included?{" "}
         <span
           className={`${
@@ -63,19 +63,19 @@ function CheckoutBookingDetails({ bookingData, cabinData }) {
       </p>
 
       {/* Start Date */}
-      <p className="row-[5/6] col-[1/7] ml-2 font-medium tracking-wider">
+      <p className="row-[5/6] col-[1/8] ml-2 font-medium sm:tracking-wider text-sm sm:text-base">
         <span className="font-extralight pr-2">From:</span>{" "}
         {format(parseISO(bookingData.startDate), "iii MMMMMM dd, yyyy")}
       </p>
 
       {/* End Date */}
-      <p className="row-[6/7] col-[1/7] ml-2 font-medium tracking-wider">
+      <p className="row-[6/7] col-[1/8] ml-2 font-medium sm:tracking-wider text-sm sm:text-base">
         <span className="font-extralight pr-2">To:</span>{" "}
         {format(parseISO(bookingData.endDate), "iii MMMMMM dd, yyyy")}
       </p>
 
       <p
-        className="row-[8/9] col-[7/9] font-semibold uppercase 
+        className="row-[8/9] col-[6/9] sm:col-[7/9] font-semibold uppercase 
       text-accent-500 text-xl"
       >
         Total :
@@ -90,7 +90,7 @@ function CheckoutBookingDetails({ bookingData, cabinData }) {
       </p>
 
       {/* VERTICAL LINE */}
-      <div className="absolute w-[1px] h-[9rem] bg-accent-300 right-[7rem] top-14">
+      <div className="absolute w-[1px] h-[9rem] bg-accent-300 right-[5rem] sm:right-[7rem] top-14">
         &nbsp;
       </div>
 

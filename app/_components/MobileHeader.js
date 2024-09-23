@@ -3,14 +3,15 @@ import { auth } from "@/app/_lib/auth";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import useSupabaseUser from "@/app/_hooks/useSupabaseUser";
+import MobileNavigation from "./MobileNavigation";
 
-export default async function LogInOutHeader() {
+export default async function MobileHeader() {
   const session = await auth();
 
   const { user } = await useSupabaseUser();
 
   return (
-    <>
+    <div className="flex items-center gap-5">
       {!session && !user ? (
         <div className="flex items-center gap-1 md:gap-2 lg:gap-4">
           {/* LOGIN BUTTON */}
@@ -62,6 +63,8 @@ export default async function LogInOutHeader() {
           </form>
         </div>
       )}
-    </>
+
+      <MobileNavigation />
+    </div>
   );
 }
