@@ -19,6 +19,7 @@ function ReservationCard({ booking, onDelete }) {
     totalPrice,
     numGuests,
     status,
+    isPaid,
     created_at,
     cabins: { name, image },
   } = booking;
@@ -39,14 +40,24 @@ function ReservationCard({ booking, onDelete }) {
           <h3 className="text-xl font-semibold">
             {numNights} nights in Cabin {name}
           </h3>
-          {isPast(new Date(startDate)) ? (
-            <span className="bg-yellow-800 text-yellow-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
-              past
-            </span>
+          {isPaid ? (
+            <>
+              {isPast(new Date(startDate)) ? (
+                <span className="bg-yellow-800 text-white h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+                  past
+                </span>
+              ) : (
+                <span className="bg-green-800 text-white h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+                  upcoming
+                </span>
+              )}
+            </>
           ) : (
-            <span className="bg-green-800 text-green-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
-              upcoming
-            </span>
+            !isPast(new Date(startDate)) && (
+              <span className="bg-red-600 text-white h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+                un-paid
+              </span>
+            )
           )}
         </div>
 
@@ -70,17 +81,26 @@ function ReservationCard({ booking, onDelete }) {
         </div>
       </div>
 
-      <div className="flex flex-row md:flex-col max-[600px]:items-center max-[600px]:justify-between border-l border-primary-800  md:w-[100px]">
+      <div className="flex flex-row md:flex-col max-[600px]:items-center max-[600px]:justify-between border-l border-primary-800  md:w-[120px]">
         {!isPast(startDate) && (
           <>
             <Link
               href={`/account/reservations/edit/${id}`}
-              className="group self-center flex items-center max-md:justify-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900 max-md:py-2.5"
+              className="w-full group self-center flex items-center max-md:justify-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900 max-md:py-2.5"
             >
               <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
               <span className="mt-1">Edit</span>
             </Link>
             <DeleteReservation bookingId={id} onDelete={onDelete} />
+            {!isPaid && (
+              <Link
+                href={`/checkout/${id}`}
+                className="w-full group self-center flex items-center max-md:justify-center gap-2 uppercase text-xs font-bold bg-blue-800 text-white flex-grow px-3 hover:bg-blue-900 transition-colors max-md:py-2.5"
+              >
+                <PencilSquareIcon className="h-5 w-5 text-white transition-colors" />
+                <span className="mt-1">Pay Now</span>{" "}
+              </Link>
+            )}
           </>
         )}
       </div>
