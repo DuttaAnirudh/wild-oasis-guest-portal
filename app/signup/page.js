@@ -1,7 +1,9 @@
 import Logo from "@/app/_components/Logo";
 import Link from "next/link";
 import SignInButton from "../_components/SignInButton";
-import { signupSupabase } from "../_lib/actions";
+import NoCustomSignupsAlert from "../_components/NoCustomSignupsAlert";
+
+// import { signupSupabase } from "../_lib/actions";
 
 export const metadata = {
   title: "Signup",
@@ -26,33 +28,47 @@ export default function SignUp() {
           <hr className="border border-accent-500/50 w-[35%] mr-auto" />
         </div>
 
+        {/* ALERT BOX - NO CUSTOM SIGNUPS */}
+        <div className="w-[18.5rem]">
+          <NoCustomSignupsAlert />
+        </div>
+
         {/* SIGN UP USING SUPABASE */}
-        <form action={signupSupabase} className="flex flex-col gap-6">
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Full Name*"
-            required
-            className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address*"
-            required
-            className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password*"
-            required
-            className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600"
-          />
-          <button className="w-full py-2 text-xl text-accent-600 font-semibold border-2 border-accent-600 rounded-lg hover:text-primary-950 hover:bg-accent-600 transition-all">
-            Sign Up
-          </button>
-        </form>
+        <div className="opacity-50 cursor-not-allowed">
+          {/* <form action={signupSupabase} className="flex flex-col gap-6 "> */}
+          <form className="flex flex-col gap-6 ">
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name*"
+              required
+              disabled
+              className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600 cursor-not-allowed"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address*"
+              required
+              disabled
+              className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600 cursor-not-allowed"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password*"
+              required
+              disabled
+              className="py-2 px-1 w-[18.5rem] rounded-md text-primary-950 placeholder:text-accent-600 cursor-not-allowed"
+            />
+            <button
+              disabled
+              className="w-full py-2 text-xl text-accent-600 font-semibold border-2 border-accent-600 rounded-lg hover:text-primary-950 hover:bg-accent-600 transition-all cursor-not-allowed"
+            >
+              Sign Up
+            </button>
+          </form>
+        </div>
 
         <p className="text-sm font-light mt-2">
           Already have an Account?{" "}
